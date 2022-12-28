@@ -28,5 +28,5 @@ services:
     image: grafana/promtail:2.4.1-arm
     restart: always
     volumes:
-    - ./promtail/config.yaml:/etc/promtail/config.yaml:ro
+    - ./promtail-config.yaml:/etc/promtail/config.yaml:ro
     - /var/log:/var/log
