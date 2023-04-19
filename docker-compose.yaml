@@ -46,7 +46,6 @@ services:
     - prometheus-data:/prometheus
     ports:
     - 9090:9090
-    restart: always
 
 volumes:
   grafana-data:
