@@ -25,7 +25,7 @@ services:
 
   promtail:
     command: -config.file=/etc/promtail/config.yaml
-    image: grafana/promtail:2.4.1-arm
+    image: grafana/promtail:2.8.0
     restart: always
     volumes:
     - ./promtail-config.yaml:/etc/promtail/config.yaml:ro
