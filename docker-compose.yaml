@@ -35,7 +35,7 @@ services:
 
   prometheus:
     command:
-    #   - '--storage.local.retention=72h'
+    - '--storage.tsdb.retention.time=31d'
     #   - '--storage.local.memory-chunks=524288'
     - '--config.file=/etc/prometheus/prometheus.yaml'
     #   - '--alertmanager.url=http://alertmanager:9093'
