@@ -6,11 +6,23 @@ secrets:
     file: ./secrets/gf_admin_password
 
 services:
+  alertmanager:
+    image: prom/alertmanager:v0.25.0
+    depends_on:
+    - loki
+    - prometheus
+    command: "--config.file=/etc/alertmanager/config.yaml"
+    restart: always
+    ports:
+    - 9093:9093
+    volumes:
+    - ./alertmanager-config.yaml:/etc/alertmanager/config.yaml
   grafana:
     env_file: ./grafana_env
     environment:
     - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/gf-admin-password
     depends_on:
+    - alertmanager
     - loki
     - prometheus
     image: grafana/grafana:9.4.7
@@ -38,11 +50,11 @@ services:
     - '--storage.tsdb.retention.time=31d'
     #   - '--storage.local.memory-chunks=524288'
     - '--config.file=/etc/prometheus/prometheus.yaml'
-    #   - '--alertmanager.url=http://alertmanager:9093'
     image:  prom/prometheus:v2.43.0
     restart: always
     volumes:
     - ./prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+    - ./prometheus-rules.yaml:/etc/prometheus/rules.yaml:ro
     - prometheus-data:/prometheus
     ports:
     - 9090:9090
