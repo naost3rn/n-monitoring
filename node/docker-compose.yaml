@@ -1,6 +1,6 @@
 ---
 version: '3.8'
-
+name: n-monitoring-agent
 services:
   cadvisor:
     image: zcube/cadvisor:v0.45.0
